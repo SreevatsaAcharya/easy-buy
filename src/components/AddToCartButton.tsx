@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useCart } from "@/context/CartContext";
+import { cn } from "@/lib/cn";
 
 type AddToCartButtonProps = {
   id: number;
@@ -18,7 +19,7 @@ export default function AddToCartButton({
   price,
   thumbnail,
   quantity = 1,
-  className = "",
+  className,
 }: AddToCartButtonProps) {
   const { addItem } = useCart();
   const [justAdded, setJustAdded] = useState(false);
@@ -33,11 +34,13 @@ export default function AddToCartButton({
     <button
       type="button"
       onClick={handleClick}
-      className={`font-tag text-sm font-bold uppercase tracking-wide rounded-md px-4 py-2 transition-colors ${
+      className={cn(
+        "font-tag text-sm font-bold uppercase tracking-wide rounded-md px-4 py-2 transition-colors",
         justAdded
           ? "bg-sage text-paper-card"
-          : "bg-ink text-paper-card hover:bg-coral"
-      } ${className}`}
+          : "bg-ink text-paper-card hover:bg-coral",
+        className
+      )}
     >
       {justAdded ? "Added" : "Add to cart"}
     </button>

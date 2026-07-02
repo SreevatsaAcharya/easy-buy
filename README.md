@@ -69,6 +69,20 @@ as a rotated "swing tag" chip with a die-cut hole — reused across the
 product grid, detail page, and cart line items, since price is the one
 thing every screen in an e-commerce app is fundamentally about.
 
+**Tailwind, plus a `cn()` helper for conditional classes.** Styling is
+plain Tailwind utility classes in JSX, with one small addition:
+`src/lib/cn.ts` wraps `clsx` + `tailwind-merge` so components with a
+variant or two (`PriceTag`'s size/sale/on-paper flags, the "Added" state
+on the add-to-cart buttons) build their class string declaratively
+instead of manual `.filter(Boolean).join(" ")` or template-literal
+ternaries. It's deliberately not `class-variance-authority` or a
+component library — two components with a couple of boolean flags each
+don't need a variants API, and pulling in Ant Design/MUI would fight the
+custom price-tag identity already in place. Repeated non-conditional
+styling (the price tag itself, the receipt-style dashed dividers) lives
+as named classes in `globals.css` instead of being copy-pasted as
+Tailwind strings.
+
 **Quantity and remove logic live in the cart context, not the UI.**
 `setQuantity(id, 0-or-less)` removes the item rather than leaving a
 0-quantity row, so the cart page and any future "buy again" widget can't

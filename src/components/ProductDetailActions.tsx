@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import { useCart } from "@/context/CartContext";
+import { cn } from "@/lib/cn";
 
 type ProductDetailActionsProps = {
   id: number;
@@ -53,11 +54,12 @@ export default function ProductDetailActions({
       <button
         type="button"
         onClick={handleAdd}
-        className={`font-tag text-sm font-bold uppercase tracking-wide rounded-md px-6 py-3 transition-colors ${
+        className={cn(
+          "font-tag text-sm font-bold uppercase tracking-wide rounded-md px-6 py-3 transition-colors",
           justAdded
             ? "bg-sage text-paper-card"
             : "bg-ink text-paper-card hover:bg-coral"
-        }`}
+        )}
       >
         {justAdded ? "Added to cart" : "Add to cart"}
       </button>

@@ -1,3 +1,5 @@
+import { cn } from "@/lib/cn";
+
 type PriceTagProps = {
   price: number;
   sale?: boolean;
@@ -11,17 +13,19 @@ export default function PriceTag({
   sale = false,
   size = "sm",
   onPaper = false,
-  className = "",
+  className,
 }: PriceTagProps) {
-  const classes = [
-    "price-tag",
-    sale && "price-tag--sale",
-    size === "lg" && "price-tag--lg",
-    onPaper && "price-tag--on-paper",
-    className,
-  ]
-    .filter(Boolean)
-    .join(" ");
-
-  return <span className={classes}>${price.toFixed(2)}</span>;
+  return (
+    <span
+      className={cn(
+        "price-tag",
+        sale && "price-tag--sale",
+        size === "lg" && "price-tag--lg",
+        onPaper && "price-tag--on-paper",
+        className
+      )}
+    >
+      ${price.toFixed(2)}
+    </span>
+  );
 }
