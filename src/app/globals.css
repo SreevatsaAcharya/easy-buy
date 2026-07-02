@@ -1,26 +1,112 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --color-paper: #eef2e8;
+  --color-paper-card: #fbfaf6;
+  --color-ink: #16213a;
+  --color-ink-soft: #3c4a63;
+  --color-marigold: #ffb627;
+  --color-marigold-dark: #e69c0f;
+  --color-coral: #ff5a3c;
+  --color-sage: #4f7965;
+  --color-line: #d6d2c2;
+
+  --font-display: var(--font-space-grotesk);
+  --font-body: var(--font-inter);
+  --font-tag: var(--font-space-mono);
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
-}
+  --color-paper: var(--color-paper);
+  --color-paper-card: var(--color-paper-card);
+  --color-ink: var(--color-ink);
+  --color-ink-soft: var(--color-ink-soft);
+  --color-marigold: var(--color-marigold);
+  --color-marigold-dark: var(--color-marigold-dark);
+  --color-coral: var(--color-coral);
+  --color-sage: var(--color-sage);
+  --color-line: var(--color-line);
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
+  --font-tag: var(--font-tag);
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--color-paper);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+:focus-visible {
+  outline: 2px solid var(--color-coral);
+  outline-offset: 2px;
+}
+
+/* Signature element: the swing price-tag, a rotated chip with a
+   die-cut hole punched through it, used everywhere a price appears. */
+.price-tag {
+  --hole: var(--color-paper-card);
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  font-family: var(--font-tag);
+  font-weight: 700;
+  background: var(--color-marigold);
+  color: var(--color-ink);
+  padding: 0.3rem 0.65rem 0.3rem 1.15rem;
+  border-radius: 0.2rem 0.6rem 0.6rem 0.2rem;
+  transform: rotate(-3deg);
+  white-space: nowrap;
+  box-shadow: 1px 2px 0 rgba(22, 33, 58, 0.18);
+}
+
+.price-tag::before {
+  content: "";
+  position: absolute;
+  left: 0.4rem;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 0.3rem;
+  height: 0.3rem;
+  border-radius: 50%;
+  background: var(--hole);
+  border: 1px solid rgba(22, 33, 58, 0.35);
+}
+
+.price-tag--on-paper {
+  --hole: var(--color-paper);
+}
+
+.price-tag--sale {
+  background: var(--color-coral);
+  color: var(--color-paper-card);
+}
+
+.price-tag--lg {
+  font-size: 1.35rem;
+  padding: 0.5rem 0.9rem 0.5rem 1.6rem;
+}
+
+.price-tag--lg::before {
+  left: 0.6rem;
+  width: 0.4rem;
+  height: 0.4rem;
+}
+
+.receipt-divider {
+  border: none;
+  border-top: 1px dashed var(--color-line);
 }
